@@ -1,4 +1,4 @@
-package com.example.hand_in_hand.Entities.Models;
+package com.example.hand_in_hand.entities.models;
 
 import jakarta.persistence.*;
 
