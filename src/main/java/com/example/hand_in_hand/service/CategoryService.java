@@ -2,7 +2,6 @@ package com.example.hand_in_hand.service;
 
 import com.example.hand_in_hand.dao.CategoryDAOImpl;
 import com.example.hand_in_hand.entities.models.Category;
-import com.example.hand_in_hand.service.Contracts.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryService implements com.example.hand_in_hand.service.Contracts.CategoryService {
     private CategoryDAOImpl categoryDAO;
     @Autowired
-    public CategoryServiceImpl(CategoryDAOImpl categoryDAO) {
+    public CategoryService(CategoryDAOImpl categoryDAO) {
         this.categoryDAO = categoryDAO;
     }
     @Transactional
