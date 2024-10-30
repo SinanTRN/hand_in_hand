@@ -1,5 +1,6 @@
 package com.example.hand_in_hand.dao;
 
+import com.example.hand_in_hand.dao.contracts.CategoryDAO;
 import com.example.hand_in_hand.entities.models.Category;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public class CategoryDAOImpl implements GenericDAO<Category> {
+public class CategoryDAOImpl implements CategoryDAO {
     private EntityManager em;
     @Autowired
     public CategoryDAOImpl(EntityManager em) {

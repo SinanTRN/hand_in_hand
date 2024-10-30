@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CategoryService implements com.example.hand_in_hand.service.Contracts.CategoryService {
+public class CategoryService implements com.example.hand_in_hand.service.contracts.CategoryService {
     private CategoryDAOImpl categoryDAO;
     @Autowired
     public CategoryService(CategoryDAOImpl categoryDAO) {

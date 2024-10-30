@@ -1,10 +1,10 @@
-package com.example.hand_in_hand.service.Contracts;
+package com.example.hand_in_hand.dao.contracts;
 
 import com.example.hand_in_hand.entities.models.Category;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface CategoryDAO {
     Category save(Category entity);
     List<Category> getAll();
     Category getById(int id);

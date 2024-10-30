@@ -1,7 +1,7 @@
 package com.example.hand_in_hand.controller;
 
 import com.example.hand_in_hand.entities.models.Category;
-import com.example.hand_in_hand.service.Contracts.CategoryService;
+import com.example.hand_in_hand.service.contracts.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
