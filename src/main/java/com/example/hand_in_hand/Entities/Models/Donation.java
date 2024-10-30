@@ -2,6 +2,8 @@ package com.example.hand_in_hand.Entities.Models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "donation")
 public class Donation {
@@ -10,50 +12,78 @@ public class Donation {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name="philanthropis_id")
-    private Integer philanthropisId;
+    @ManyToOne
+    @JoinColumn(name = "philanthropist_id", nullable = false)
+    private User philanthropist;
 
-    @Column(name="category_id")
-    private Integer categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
-    @Column(name="needy_id")
-    private Integer needyId;
+    @ManyToOne
+    @JoinColumn(name = "needy_id", nullable = false)
+    private User needy;
 
-    @Column(name="description")
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @Column(name = "description")
     private String description;
 
-    @Column(name="location_id")
-    private Integer locationId;
+    @Column(name = "time")
+    private LocalDateTime time;
 
-    @Column(name="time")
-    private String time;
-
+    public Donation(User philanthropist, Category category, User needy, Location location, String description, LocalDateTime time) {
+        this.philanthropist = philanthropist;
+        this.category = category;
+        this.needy = needy;
+        this.location = location;
+        this.description = description;
+        this.time = time;
+    }
     public Donation() {
     }
-    public Donation(Integer philanthropisId, Integer categoryId, Integer needyId, String description, Integer locationId, String time) {
-        this.philanthropisId = philanthropisId;
-        this.categoryId = categoryId;
-        this.needyId = needyId;
-        this.description = description;
-        this.locationId = locationId;
-        this.time = time;
+
+
+    public Integer getId() {
+        return id;
     }
 
-
-    public String getTime() {
-        return time;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public User getPhilanthropist() {
+        return philanthropist;
     }
 
-    public Integer getLocationId() {
-        return locationId;
+    public void setPhilanthropist(User philanthropist) {
+        this.philanthropist = philanthropist;
     }
 
-    public void setLocationId(Integer locationId) {
-        this.locationId = locationId;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public User getNeedy() {
+        return needy;
+    }
+
+    public void setNeedy(User needy) {
+        this.needy = needy;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getDescription() {
@@ -64,35 +94,11 @@ public class Donation {
         this.description = description;
     }
 
-    public Integer getNeedyId() {
-        return needyId;
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public void setNeedyId(Integer needyId) {
-        this.needyId = needyId;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Integer getPhilanthropisId() {
-        return philanthropisId;
-    }
-
-    public void setPhilanthropisId(Integer philanthropisId) {
-        this.philanthropisId = philanthropisId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 }

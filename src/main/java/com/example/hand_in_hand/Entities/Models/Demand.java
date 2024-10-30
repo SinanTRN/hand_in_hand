@@ -10,21 +10,23 @@ public class Demand {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name="needy_id")
-    private Integer needyId;
+    @ManyToOne
+    @JoinColumn(name = "needy_id", nullable = false)
+    private User needy;  // Needy'i User türünde yaparak ilişkilendirdik
 
-    @Column(name="category_id")
-    private Integer categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;  // Category'i Category türünde yaparak ilişkilendirdik
 
     @Column(name="description")
     private String description;
 
-    public Demand() {
-    }
-    public Demand(Integer needyId, Integer categoryId, String description) {
-        this.needyId = needyId;
-        this.categoryId = categoryId;
+    public Demand(User needy, Category category, String description) {
+        this.needy = needy;
+        this.category = category;
         this.description = description;
+    }
+    public Demand() {
     }
 
     public Integer getId() {
@@ -35,20 +37,20 @@ public class Demand {
         this.id = id;
     }
 
-    public Integer getNeedyId() {
-        return needyId;
+    public User getNeedy() {
+        return needy;
     }
 
-    public void setNeedyId(Integer needyId) {
-        this.needyId = needyId;
+    public void setNeedy(User needy) {
+        this.needy = needy;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getDescription() {
