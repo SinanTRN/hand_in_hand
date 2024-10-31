@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CategoryService implements com.example.hand_in_hand.service.contracts.CategoryService {
+public class CategoryServiceImpl implements com.example.hand_in_hand.service.contracts.CategoryService {
     private CategoryDAOImpl categoryDAO;
     @Autowired
-    public CategoryService(CategoryDAOImpl categoryDAO) {
+    public CategoryServiceImpl(CategoryDAOImpl categoryDAO) {
         this.categoryDAO = categoryDAO;
     }
     @Transactional
