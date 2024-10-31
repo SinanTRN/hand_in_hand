@@ -26,6 +26,7 @@ public class UserController {
         if (user == null) {
             throw new RuntimeException("User not found for the id: " + id);
         }
+
         return user;
     }
 
