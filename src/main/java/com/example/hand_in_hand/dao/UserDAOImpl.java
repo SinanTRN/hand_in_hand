@@ -36,6 +36,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getByUserName(String username) {
+        return em.find(User.class, username);
+    }
+
+    @Override
     public void update(User entity) {
         em.merge(entity);
     }
