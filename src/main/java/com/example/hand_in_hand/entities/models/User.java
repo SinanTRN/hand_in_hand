@@ -22,12 +22,20 @@ public class User {
     @Column(name="phone_number")
     private String phoneNumber;
 
+    @Column(name="password")
+    private String password;
 
-    public User(String firstName, String lastName, String email, String phoneNumber) {
+    @Column(name="username")
+    private String username;
+
+
+    public User(String username ,String firstName, String lastName, String email, String phoneNumber, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.username = username;
     }
 
     public User() {
@@ -71,5 +79,21 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
