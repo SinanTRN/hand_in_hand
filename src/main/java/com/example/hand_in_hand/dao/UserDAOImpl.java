@@ -36,11 +36,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getByUserName(String username) {
-        return em.find(User.class, username);
-    }
-
-    @Override
     public void update(User entity) {
         em.merge(entity);
     }
@@ -51,6 +46,12 @@ public class UserDAOImpl implements UserDAO {
         em.remove(user);
     }
 
+    @Override
+    public User findByUsername(String username) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+        return query.getSingleResult();
+    }
 
 
 }

@@ -8,7 +8,7 @@ public interface UserDAO {
     User save(User entity);
     List<User> getAll();
     User getById(int id);
-    User getByUserName(String username);
     void update(User entity);
     void deleteById(int id);
+    User findByUsername(String username);
 }

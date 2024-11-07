@@ -29,12 +29,19 @@ public class User {
     private String username;
 
 
-    public User(String username ,String firstName, String lastName, String email, String phoneNumber, String password) {
+    public User(String firstName, String lastName, String phoneNumber, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.username = username;
+    }
+    public User(String firstName, String lastName, String phoneNumber, String email, String username) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.username = username;
     }
 

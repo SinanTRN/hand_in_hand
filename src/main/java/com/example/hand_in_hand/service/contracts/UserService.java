@@ -10,4 +10,6 @@ public interface UserService {
     User getById(int id);
     void update(User entity);
     void deleteById(int id);
+    User findByUsername(String username);
+    boolean authenticate(String username, String password);
 }
