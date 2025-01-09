@@ -1,32 +1,35 @@
-package com.example.hand_in_hand.dao;
+package com.example.hand_in_hand.dao.implementations;
 
 import com.example.hand_in_hand.dao.contracts.UserDAO;
 import com.example.hand_in_hand.entities.models.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class UserDAOImpl implements UserDAO {
 
     private EntityManager em;
-    @Autowired
-    public UserDAOImpl(EntityManager em) {
-        this.em = em;
-    }
 
     @Override
     public User save(User entity) {
-        User dbUser = em.merge(entity);
-        return dbUser;
+        return em.merge(entity);
     }
 
     @Override
     public List<User> getAll() {
         TypedQuery<User> users = em.createQuery("SELECT u FROM User u", User.class);
+        return users.getResultList();
+    }
+
+    @Override
+    public List<User> getAllByRole(String role) {
+        TypedQuery<User> users = em.createQuery("SELECT u FROM User u JOIN u.roles r WHERE r.name= :role", User.class);
+        users.setParameter("role", role);
         return users.getResultList();
     }
 
@@ -51,6 +54,13 @@ public class UserDAOImpl implements UserDAO {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
         query.setParameter("username", username);
         return query.getSingleResult();
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+        return !query.getResultList().isEmpty();
     }
 
 

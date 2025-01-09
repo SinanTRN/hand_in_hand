@@ -10,4 +10,5 @@ public interface CategoryDAO {
     Category getById(int id);
     void update(Category entity);
     void deleteById(int id);
+    boolean existsByName(String name);
 }

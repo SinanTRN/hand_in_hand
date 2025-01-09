@@ -1,8 +1,18 @@
 package com.example.hand_in_hand.entities.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "location")
 public class Location {
     @Id
@@ -11,39 +21,9 @@ public class Location {
     private Integer id;
 
     @Column(name="title")
+    @NotBlank(message = "Title is mandatory") // bir alanın boş olmaması gerektiğini belirtir
     private String title;
 
     @Column(name="address")
     private String address;
-
-    public Location() {
-    }
-    public Location(String title, String address) {
-        this.title = title;
-        this.address = address;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 }

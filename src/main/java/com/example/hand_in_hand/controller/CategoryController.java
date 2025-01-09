@@ -1,56 +1,49 @@
 package com.example.hand_in_hand.controller;
 
+import com.example.hand_in_hand.annotations.RoleRequired;
 import com.example.hand_in_hand.entities.models.Category;
 import com.example.hand_in_hand.service.contracts.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
+@RequestMapping("/categories")
 public class CategoryController {
-    private CategoryService categoryService;
-    @Autowired
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    private final CategoryService categoryService;
 
-    @GetMapping("/categories")
+    @GetMapping
     public List<Category> getAllCategories() {
         return categoryService.getAll();
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     public Category getCategoryById(@PathVariable int id) {
-        Category category = categoryService.getById(id);
-        if (category == null) {
-            throw new RuntimeException("Category not found for the id: " + id);
-        }
-        return category;
+        return categoryService.getById(id);
     }
 
-    @PostMapping("/categories")
-    public Category saveCategory(@RequestBody Category category) {
-        category.setId(0);
+    @RoleRequired(role = "ADMIN")
+    @PostMapping
+    public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category category) {
         Category savedCategory = categoryService.save(category);
-        return savedCategory;
+        return new ResponseEntity<>(savedCategory, ResponseEntity.status(201).build().getStatusCode());
     }
 
-    @PutMapping("/categories/{id}")
-    public Category updateCategory(@RequestBody Category category) {
+    @RoleRequired(role = "ADMIN")
+    @PutMapping("/{id}")
+    public Category updateCategory(@Valid @RequestBody Category category) {
         categoryService.update(category);
         return category;
     }
 
-    @DeleteMapping("/categories/{id}")
-    public String deleteCategoryById(@PathVariable int id) {
-        Category category = categoryService.getById(id);
-        if (category == null) {
-            throw new RuntimeException("Category not found for the id: " + id);
-        }
+    @RoleRequired(role = "ADMIN")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCategoryById(@PathVariable int id) {
         categoryService.deleteById(id);
-        return "Category deleted with id: " + id;
+        return ResponseEntity.status(204).build();
     }
-
-
 }

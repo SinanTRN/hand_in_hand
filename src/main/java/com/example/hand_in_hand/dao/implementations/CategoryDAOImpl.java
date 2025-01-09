@@ -1,24 +1,20 @@
-package com.example.hand_in_hand.dao;
+package com.example.hand_in_hand.dao.implementations;
 
 import com.example.hand_in_hand.dao.contracts.CategoryDAO;
 import com.example.hand_in_hand.entities.models.Category;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+@AllArgsConstructor
 @Repository
 public class CategoryDAOImpl implements CategoryDAO {
     private EntityManager em;
-    @Autowired
-    public CategoryDAOImpl(EntityManager em) {
-        this.em = em;
-    }
     @Override
     public Category save(Category entity) {
-        Category dbCategory = em.merge(entity);
-        return dbCategory;
+        return em.merge(entity);
     }
 
     @Override
@@ -41,5 +37,12 @@ public class CategoryDAOImpl implements CategoryDAO {
     public void deleteById(int id) {
         Category category = em.find(Category.class, id);
         em.remove(category);
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.categoryName = :name", Category.class);
+        query.setParameter("name", name);
+        return !query.getResultList().isEmpty();
     }
 }

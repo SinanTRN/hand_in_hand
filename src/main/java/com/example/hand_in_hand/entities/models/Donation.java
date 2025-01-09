@@ -1,10 +1,18 @@
 package com.example.hand_in_hand.entities.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "donation")
 public class Donation {
     @Id
@@ -13,18 +21,18 @@ public class Donation {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "philanthropist_id", nullable = false)
+    @JoinColumn(name = "philanthropist_id")
     private User philanthropist;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "needy_id", nullable = false)
+    @JoinColumn(name = "needy_id")
     private User needy;
 
-    @ManyToOne
+    @ManyToOne // (bir bağışın bir konumu olabilir) location tablosu ile ilişkilendirme
     @JoinColumn(name = "location_id")
     private Location location;
 
@@ -32,73 +40,8 @@ public class Donation {
     private String description;
 
     @Column(name = "time")
-    private LocalDateTime time;
+    private String time;
 
-    public Donation(User philanthropist, Category category, User needy, Location location, String description, LocalDateTime time) {
-        this.philanthropist = philanthropist;
-        this.category = category;
-        this.needy = needy;
-        this.location = location;
-        this.description = description;
-        this.time = time;
-    }
-    public Donation() {
-    }
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getPhilanthropist() {
-        return philanthropist;
-    }
-
-    public void setPhilanthropist(User philanthropist) {
-        this.philanthropist = philanthropist;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public User getNeedy() {
-        return needy;
-    }
-
-    public void setNeedy(User needy) {
-        this.needy = needy;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
+    @Column(name = "status")
+    private int status;
 }

@@ -1,8 +1,17 @@
 package com.example.hand_in_hand.entities.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "demands")
 public class Demand {
     @Id
@@ -10,7 +19,8 @@ public class Demand {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
+
+    @ManyToOne // (bir kullanıcının birden fazla talebi olabilir) user tablosu ile ilişkilendirme
     @JoinColumn(name = "needy_id", nullable = false)
     private User needy;  // Needy'i User türünde yaparak ilişkilendirdik
 
@@ -20,44 +30,4 @@ public class Demand {
 
     @Column(name="description")
     private String description;
-
-    public Demand(User needy, Category category, String description) {
-        this.needy = needy;
-        this.category = category;
-        this.description = description;
-    }
-    public Demand() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getNeedy() {
-        return needy;
-    }
-
-    public void setNeedy(User needy) {
-        this.needy = needy;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

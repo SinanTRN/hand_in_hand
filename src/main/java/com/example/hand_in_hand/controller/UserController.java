@@ -1,54 +1,49 @@
 package com.example.hand_in_hand.controller;
 
+import com.example.hand_in_hand.annotations.RoleRequired;
 import com.example.hand_in_hand.entities.models.User;
 import com.example.hand_in_hand.service.contracts.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
-    private UserService userService;
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getAllUsers() {
         return userService.getAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/roles/{role}")
+    public List<User> getAllByRole(@PathVariable String role) {
+        return userService.getAllByRole(role);
+    }
+
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable int id) {
-        User user = userService.getById(id);
-        if (user == null) {
-            throw new RuntimeException("User not found for the id: " + id);
-        }
-
-        return user;
+        return userService.getById(id);
     }
 
-    @PostMapping("/users")
-    public User saveUser(@RequestBody User user) {
-        user.setId(0);
-        User savedUser = userService.save(user);
-        return savedUser;
-    }
-
-    @PutMapping("/users/{id}")
-    public User updateUser(@RequestBody User user) {
+    @PutMapping("/{id}")
+    public User updateUser(@Valid @RequestBody User user) {
         userService.update(user);
         return user;
     }
+    @RoleRequired(role = "ADMIN")
+    @PostMapping
+    public User saveUser(@RequestBody User user) {
+        return userService.save(user);
+    }
 
-    @DeleteMapping("/users/{id}")
+    @RoleRequired(role = "ADMIN")
+    @DeleteMapping("/{id}")
     public String deleteUserById(@PathVariable int id) {
-        User user = userService.getById(id);
-        if (user == null) {
-            throw new RuntimeException("User not found for the id: " + id);
-        }
         userService.deleteById(id);
         return "User deleted with id: " + id;
     }
